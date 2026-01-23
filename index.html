@@ -83,6 +83,9 @@
             --color-accent: #00d4ff;
             --color-accent-secondary: #6366f1;
             --color-success: #10b981;
+            --color-nav-bg: rgba(10, 14, 39, 0.8);
+            --color-border: rgba(0, 212, 255, 0.1);
+            --color-border-hover: rgba(0, 212, 255, 0.4);
             --spacing-xs: 0.5rem;
             --spacing-sm: 1rem;
             --spacing-md: 1.5rem;
@@ -90,6 +93,18 @@
             --spacing-xl: 3rem;
             --spacing-2xl: 4rem;
             --transition: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html.light {
+            --color-bg: #ffffff;
+            --color-bg-secondary: #f5f5f7;
+            --color-text: #1a1a1a;
+            --color-text-secondary: #666666;
+            --color-accent: #0066cc;
+            --color-accent-secondary: #5555ff;
+            --color-nav-bg: rgba(255, 255, 255, 0.95);
+            --color-border: rgba(0, 102, 204, 0.1);
+            --color-border-hover: rgba(0, 102, 204, 0.3);
         }
 
         html {
@@ -115,14 +130,14 @@
         }
 
         .section {
-            padding: var(--spacing-2xl) 0;
+            padding: 2rem 0;
             position: relative;
         }
 
         .section-title {
             font-size: clamp(2rem, 5vw, 3.5rem);
             font-weight: 700;
-            margin-bottom: var(--spacing-2xl);
+            margin-bottom: 0.8rem;
             background: linear-gradient(135deg, var(--color-accent), var(--color-accent-secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -156,12 +171,17 @@
             left: 0;
             right: 0;
             height: 70px;
-            background: rgba(10, 14, 39, 0.8);
+            background: var(--color-nav-bg);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            border-bottom: 1px solid var(--color-border);
             z-index: 1000;
             display: flex;
             align-items: center;
+            transition: all 0.3s var(--transition);
+        }
+
+        html.light nav {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .nav-container {
@@ -218,29 +238,61 @@
         }
 
         .theme-toggle {
-            width: 45px;
-            height: 24px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 12px;
+            width: 50px;
+            height: 26px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 13px;
             display: flex;
             align-items: center;
             padding: 2px;
             position: relative;
+            transition: all 0.3s var(--transition);
+        }
+
+        html.light .theme-toggle {
+            background: rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.15);
+        }
+
+        .theme-toggle::before {
+            content: '🌙';
+            position: absolute;
+            left: 3px;
+            font-size: 12px;
+            transition: opacity 0.3s var(--transition);
+            opacity: 1;
+        }
+
+        .theme-toggle::after {
+            content: '☀️';
+            position: absolute;
+            right: 3px;
+            font-size: 12px;
+            transition: opacity 0.3s var(--transition);
+            opacity: 0;
         }
 
         .theme-toggle span {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             background: var(--color-accent);
-            border-radius: 10px;
+            border-radius: 11px;
             position: absolute;
             left: 2px;
             transition: left 0.3s var(--transition);
         }
 
+        .theme-toggle.light::before {
+            opacity: 0;
+        }
+
+        .theme-toggle.light::after {
+            opacity: 1;
+        }
+
         .theme-toggle.light span {
-            left: 23px;
+            left: 26px;
         }
 
         /* Mobile nav */
@@ -304,6 +356,10 @@
             height: 100%;
             background: radial-gradient(circle, rgba(0, 212, 255, 0.08) 0%, transparent 70%);
             pointer-events: none;
+        }
+
+        html.light .hero::before {
+            background: radial-gradient(circle, rgba(0, 102, 204, 0.06) 0%, transparent 70%);
         }
 
         .hero-content {
@@ -372,13 +428,22 @@
 
         .btn-primary {
             background: linear-gradient(135deg, var(--color-accent), var(--color-accent-secondary));
-            color: var(--color-bg);
+            color: #ffffff;
             border: 2px solid transparent;
+        }
+
+        html.light .btn-primary {
+            color: #ffffff;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 12px 24px rgba(0, 212, 255, 0.3);
+        }
+
+        html.light .btn-primary:hover {
+            box-shadow: 0 12px 24px rgba(0, 102, 204, 0.25);
         }
 
         .btn-secondary {
@@ -390,6 +455,10 @@
         .btn-secondary:hover {
             background: rgba(0, 212, 255, 0.1);
             transform: translateY(-2px);
+        }
+
+        html.light .btn-secondary:hover {
+            background: rgba(0, 102, 204, 0.08);
         }
 
         .scroll-indicator {
@@ -451,10 +520,20 @@
             transition: all 0.3s var(--transition);
         }
 
+        html.light .stat {
+            background: rgba(0, 102, 204, 0.05);
+            border: 1px solid rgba(0, 102, 204, 0.15);
+        }
+
         .stat:hover {
             background: rgba(0, 212, 255, 0.1);
             border-color: rgba(0, 212, 255, 0.4);
             transform: translateY(-4px);
+        }
+
+        html.light .stat:hover {
+            background: rgba(0, 102, 204, 0.12);
+            border-color: rgba(0, 102, 204, 0.3);
         }
 
         .stat-number {
@@ -483,10 +562,23 @@
             overflow: hidden;
         }
 
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+
+        html.light .about-image {
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.1), rgba(85, 85, 255, 0.1));
+            border: 1px solid rgba(0, 102, 204, 0.15);
+        }
+
         .about-image::before {
             content: '✨';
             font-size: 8rem;
             opacity: 0.3;
+            position: absolute;
         }
 
         @media (max-width: 968px) {
@@ -505,15 +597,20 @@
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: var(--spacing-lg);
+            gap: 0.5rem;
         }
 
         .skill-category {
             background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(99, 102, 241, 0.05));
             border: 1px solid rgba(0, 212, 255, 0.2);
-            padding: var(--spacing-lg);
+            padding: 1rem;
             border-radius: 12px;
             transition: all 0.3s var(--transition);
+        }
+
+        html.light .skill-category {
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.05), rgba(85, 85, 255, 0.05));
+            border: 1px solid rgba(0, 102, 204, 0.15);
         }
 
         .skill-category:hover {
@@ -522,9 +619,14 @@
             transform: translateY(-8px);
         }
 
+        html.light .skill-category:hover {
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.12), rgba(85, 85, 255, 0.12));
+            border-color: rgba(0, 102, 204, 0.3);
+        }
+
         .skill-category h3 {
             font-size: 1.3rem;
-            margin-bottom: var(--spacing-md);
+            margin-bottom: var(--spacing-sm);
             color: var(--color-accent);
             display: flex;
             align-items: center;
@@ -534,7 +636,7 @@
         .skill-list {
             display: flex;
             flex-direction: column;
-            gap: var(--spacing-sm);
+            gap: 0.6rem;
         }
 
         .skill-item {
@@ -568,13 +670,18 @@
         }
 
         .project-card {
-            group relative;
+            position: relative;
             background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(99, 102, 241, 0.05));
             border: 1px solid rgba(0, 212, 255, 0.2);
             border-radius: 12px;
             padding: var(--spacing-lg);
             overflow: hidden;
             transition: all 0.3s var(--transition);
+        }
+
+        html.light .project-card {
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.05), rgba(85, 85, 255, 0.05));
+            border: 1px solid rgba(0, 102, 204, 0.15);
         }
 
         .project-card::before {
@@ -596,8 +703,9 @@
             transform: translateY(-8px);
         }
 
-        .project-card:hover::before {
-            opacity: 1;
+        html.light .project-card:hover {
+            background: linear-gradient(135deg, rgba(0, 102, 204, 0.12), rgba(85, 85, 255, 0.12));
+            border-color: rgba(0, 102, 204, 0.3);
         }
 
         .project-header {
@@ -660,6 +768,10 @@
             z-index: 2;
         }
 
+        html.light .project-links {
+            border-top: 1px solid rgba(0, 102, 204, 0.1);
+        }
+
         .project-link {
             display: inline-flex;
             align-items: center;
@@ -674,9 +786,19 @@
             transition: all 0.2s var(--transition);
         }
 
+        html.light .project-link {
+            background: rgba(0, 102, 204, 0.08);
+            border: 1px solid rgba(0, 102, 204, 0.2);
+        }
+
         .project-link:hover {
             background: rgba(0, 212, 255, 0.2);
             border-color: rgba(0, 212, 255, 0.6);
+        }
+
+        html.light .project-link:hover {
+            background: rgba(0, 102, 204, 0.15);
+            border-color: rgba(0, 102, 204, 0.4);
         }
 
         /* ============================================
@@ -714,12 +836,20 @@
             transition: all 0.3s var(--transition);
         }
 
+        html.light .timeline-dot {
+            border-color: #ffffff;
+        }
+
         .timeline-item:hover .timeline-dot {
             width: 20px;
             height: 20px;
             left: -20px;
             background: var(--color-accent-secondary);
             box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        html.light .timeline-item:hover .timeline-dot {
+            box-shadow: 0 0 20px rgba(0, 102, 204, 0.4);
         }
 
         .timeline-content {
@@ -730,9 +860,19 @@
             transition: all 0.3s var(--transition);
         }
 
+        html.light .timeline-content {
+            background: rgba(0, 102, 204, 0.05);
+            border: 1px solid rgba(0, 102, 204, 0.15);
+        }
+
         .timeline-item:hover .timeline-content {
             background: rgba(0, 212, 255, 0.1);
             border-color: rgba(0, 212, 255, 0.4);
+        }
+
+        html.light .timeline-item:hover .timeline-content {
+            background: rgba(0, 102, 204, 0.12);
+            border-color: rgba(0, 102, 204, 0.3);
         }
 
         .timeline-date {
@@ -794,10 +934,19 @@
             transition: all 0.3s var(--transition);
         }
 
+        html.light .social-link {
+            background: rgba(0, 102, 204, 0.08);
+            border: 1px solid rgba(0, 102, 204, 0.2);
+        }
+
         .social-link:hover {
             background: var(--color-accent);
-            color: var(--color-bg);
+            color: #ffffff;
             transform: translateY(-4px);
+        }
+
+        html.light .social-link:hover {
+            color: #ffffff;
         }
 
         .resume-btn {
@@ -816,7 +965,7 @@
 
         .resume-btn:hover {
             background: var(--color-success);
-            color: var(--color-bg);
+            color: #ffffff;
         }
 
         .contact-form {
@@ -848,12 +997,30 @@
             transition: all 0.3s var(--transition);
         }
 
+        html.light .form-group input,
+        html.light .form-group textarea {
+            background: rgba(0, 102, 204, 0.05);
+            border: 1px solid rgba(0, 102, 204, 0.2);
+        }
+
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
             background: rgba(0, 212, 255, 0.1);
             border-color: var(--color-accent);
             box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+        }
+
+        html.light .form-group input:focus,
+        html.light .form-group textarea:focus {
+            background: rgba(0, 102, 204, 0.08);
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.08);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--color-text-secondary);
+            opacity: 0.7;
         }
 
         .form-group textarea {
@@ -1043,27 +1210,10 @@
                         My goal is to become one of the most accomplished software engineers, delivering exceptional impact at top-tier companies 
                         while contributing to the open-source community and advancing the field of artificial intelligence.
                     </p>
-
-                    <div class="about-stats">
-                        <div class="stat">
-                            <div class="stat-number">15+</div>
-                            <div class="stat-label">Projects Shipped</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number">100%</div>
-                            <div class="stat-label">Committed</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number">50+</div>
-                            <div class="stat-label">GitHub Stars</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number">3K+</div>
-                            <div class="stat-label">Lines of Quality Code</div>
-                        </div>
-                    </div>
                 </div>
-                <div class="about-image"></div>
+                <div class="about-image">
+                    <img src="profile.jpg" alt="Keerthan Y U - AI/ML Engineer" class="profile-img">
+                </div>
             </div>
         </div>
     </section>
@@ -1461,76 +1611,6 @@
     </section>
 
     <!-- ============================================
-         EXPERIENCE / TIMELINE SECTION
-         ============================================ -->
-    <section id="experience" class="section">
-        <div class="container">
-            <h2 class="section-title fade-in">Achievements & Milestones</h2>
-            <div class="timeline">
-                <div class="timeline-item fade-in">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2024 - Present</div>
-                        <div class="timeline-title">AI/ML Engineer & Open Source Contributor</div>
-                        <div class="timeline-description">
-                            Building and maintaining multiple open-source projects in AI/ML space. Contributing to community with 50+ GitHub stars. 
-                            Developed production-grade ML models deployed to real-world applications.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item fade-in">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2024</div>
-                        <div class="timeline-title">Advanced Deep Learning Certification</div>
-                        <div class="timeline-description">
-                            Completed comprehensive course on neural networks, CNNs, and RNNs. 
-                            Built and trained multiple models from scratch. Top 5% in class performance.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item fade-in">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2023 - 2024</div>
-                        <div class="timeline-title">Data Science & Machine Learning Mastery</div>
-                        <div class="timeline-description">
-                            Mastered Python, pandas, NumPy, scikit-learn, and statistical analysis. 
-                            Completed 15+ real-world projects with measurable business impact.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item fade-in">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2023</div>
-                        <div class="timeline-title">Full-Stack Development Skills Acquired</div>
-                        <div class="timeline-description">
-                            Developed proficiency in HTML5, CSS3, JavaScript, and responsive web design. 
-                            Created multiple production-ready websites with excellent UX.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item fade-in">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2022 - Present</div>
-                        <div class="timeline-title">Continuous Learning & Growth</div>
-                        <div class="timeline-description">
-                            Committed to lifelong learning. Daily coding practice, reading research papers, 
-                            and building projects. Target: Top 1% software engineer globally.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================
          CONTACT SECTION
          ============================================ -->
     <section id="contact" class="section">
@@ -1657,8 +1737,8 @@
 
         // Stagger animations for skill items
         document.querySelectorAll('.stagger').forEach((container) => {
-            const items = container.querySelectorAll('> *');
-            items.forEach((item, index) => {
+            const items = container.children;
+            Array.from(items).forEach((item, index) => {
                 gsap.to(item, {
                     scrollTrigger: {
                         trigger: container,
@@ -1694,39 +1774,76 @@
         // ============================================
         // NAVIGATION & THEME TOGGLE
         // ============================================
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.querySelector('.nav-links');
-        const themeToggle = document.getElementById('themeToggle');
+        
+        // Wait for DOM to be ready before initializing
+        function initNavAndTheme() {
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            const themeToggle = document.getElementById('themeToggle');
 
-        // Hamburger menu toggle
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            gsap.to(hamburger.querySelectorAll('span'), {
-                duration: 0.3,
-                ease: 'power2.out'
+            if (!hamburger || !navLinks || !themeToggle) {
+                console.warn('Navigation or theme elements not found');
+                return;
+            }
+
+            // Hamburger menu toggle
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                gsap.to(hamburger.querySelectorAll('span'), {
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
             });
-        });
 
-        // Close nav on link click
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
+            // Close nav on link click
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                });
             });
-        });
 
-        // Theme toggle (dark/light mode)
-        themeToggle.addEventListener('click', () => {
-            document.documentElement.style.setProperty('--color-bg', '#f5f5f7');
-            document.documentElement.style.setProperty('--color-bg-secondary', '#ffffff');
-            document.documentElement.style.setProperty('--color-text', '#1a1a1a');
-            document.documentElement.style.setProperty('--color-text-secondary', '#666666');
-            themeToggle.classList.toggle('light');
-        });
+            // Theme toggle (dark/light mode)
+            // Initialize theme from localStorage
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            
+            if (savedTheme === 'light') {
+                document.documentElement.classList.add('light');
+                themeToggle.classList.add('light');
+            }
 
+            themeToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const isDark = document.documentElement.classList.contains('light');
+                
+                if (isDark) {
+                    // Switch to dark
+                    document.documentElement.classList.remove('light');
+                    themeToggle.classList.remove('light');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    // Switch to light
+                    document.documentElement.classList.add('light');
+                    themeToggle.classList.add('light');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+        }
+
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initNavAndTheme);
+        } else {
+            initNavAndTheme();
+        }
+        
         // ============================================
         // CONTACT FORM HANDLING
         // ============================================
-        const contactForm = document.getElementById('contactForm');
+        function initContactForm() {
+            const contactForm = document.getElementById('contactForm');
+            if (!contactForm) return;
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
@@ -1752,7 +1869,15 @@
                     opacity: 1
                 });
             }, 1000);
-        });
+            });
+        }
+
+        // Initialize contact form when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initContactForm);
+        } else {
+            initContactForm();
+        }
 
         // ============================================
         // SMOOTH SCROLL BEHAVIOR
@@ -1836,6 +1961,14 @@
         console.log('✨ Welcome to Keerthan\'s Portfolio!');
         console.log('🚀 Built with HTML, CSS, JavaScript, and GSAP');
         console.log('💡 Ready for GitHub Pages deployment');
+
+        // Test theme toggle on load
+        window.addEventListener('load', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) {
+                console.log('✅ Theme toggle button found and ready');
+            }
+        });
     </script>
 </body>
 </html>
