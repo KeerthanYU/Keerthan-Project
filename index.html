@@ -4,114 +4,191 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Keerthan Y U | Portfolio</title>
+
   <style>
     * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
-}
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+    }
 
-body {
-  line-height: 1.6;
-  color: #222;
-}
+    body {
+      background: #f9f9f9;
+      color: #222;
+      line-height: 1.7;
+    }
 
-nav {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px 40px;
-  background: #111;
-}
+    /* NAVBAR */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 50px;
+      background: #0f172a;
+    }
 
-nav .logo {
-  color: #00e5ff;
-}
+    nav .logo {
+      color: #38bdf8;
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
 
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-}
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
 
-nav ul li a {
-  color: #fff;
-  text-decoration: none;
-}
+    nav ul li a {
+      color: #e5e7eb;
+      text-decoration: none;
+      font-weight: 500;
+    }
 
-.hero {
-  height: 90vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(120deg, #111, #222);
-  color: white;
-  text-align: center;
-}
+    nav ul li a:hover {
+      color: #38bdf8;
+    }
 
-.hero span {
-  color: #00e5ff;
-}
+    /* HERO */
+    .hero {
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(135deg, #020617, #0f172a);
+      color: white;
+      padding: 0 20px;
+    }
 
-.btn {
-  margin-top: 20px;
-  padding: 10px 25px;
-  background: #00e5ff;
-  color: #000;
-  text-decoration: none;
-  border-radius: 5px;
-}
+    .hero h1 {
+      font-size: 2.8rem;
+    }
 
-.section {
-  padding: 60px 40px;
-  max-width: 1000px;
-  margin: auto;
-}
+    .hero span {
+      color: #38bdf8;
+    }
 
-.section h2 {
-  margin-bottom: 20px;
-  text-align: center;
-}
+    .hero p {
+      margin-top: 10px;
+      font-size: 1.1rem;
+      color: #cbd5f5;
+    }
 
-.dark {
-  background: #f4f4f4;
-}
+    .btn {
+      margin-top: 25px;
+      padding: 12px 30px;
+      background: #38bdf8;
+      color: #020617;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+    }
 
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 15px;
-  text-align: center;
-}
+    .btn:hover {
+      background: #0ea5e9;
+    }
 
-.skills-grid div {
-  padding: 15px;
-  background: white;
-  border-radius: 5px;
-}
+    /* SECTIONS */
+    .section {
+      padding: 70px 40px;
+      max-width: 1100px;
+      margin: auto;
+    }
 
-.project-card {
-  margin: 20px 0;
-  padding: 20px;
-  background: #fafafa;
-  border-left: 5px solid #00e5ff;
-}
+    .section h2 {
+      text-align: center;
+      margin-bottom: 35px;
+      font-size: 2rem;
+      color: #020617;
+    }
 
-footer {
-  text-align: center;
-  padding: 20px;
-  background: #111;
-  color: white;
-}
+    /* ABOUT */
+    #about p {
+      max-width: 850px;
+      margin: auto;
+      text-align: center;
+      font-size: 1.05rem;
+      color: #334155;
+    }
 
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .skills-grid div {
+      background: white;
+      padding: 18px;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: 500;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+      transition: transform 0.2s ease;
+    }
+
+    .skills-grid div:hover {
+      transform: translateY(-5px);
+    }
+
+    /* PROJECTS */
+    .project-card {
+      background: white;
+      padding: 25px;
+      margin-bottom: 25px;
+      border-radius: 12px;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+    }
+
+    .project-card h3 {
+      margin-bottom: 10px;
+      color: #020617;
+    }
+
+    .project-card p {
+      color: #475569;
+    }
+
+    /* CONTACT */
+    #contact {
+      text-align: center;
+      background: #020617;
+      color: #e5e7eb;
+      border-radius: 20px;
+    }
+
+    #contact h2 {
+      color: #38bdf8;
+    }
+
+    #contact a {
+      color: #38bdf8;
+      text-decoration: none;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 25px;
+      margin-top: 40px;
+      background: #0f172a;
+      color: #94a3b8;
+    }
   </style>
 </head>
+
 <body>
 
   <!-- NAVBAR -->
   <nav>
-    <h2 class="logo">Keerthan</h2>
+    <div class="logo">Keerthan</div>
     <ul>
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
@@ -131,15 +208,15 @@ footer {
   <section id="about" class="section">
     <h2>About Me</h2>
     <p>
-      I’m a passionate software engineering student with a strong foundation in
+      I am a passionate software engineering student with strong foundations in
       Python, data structures, and machine learning. I enjoy building real-world
-      projects, participating in hackathons, and learning how intelligent systems
-      can solve practical problems at scale.
+      projects, participating in hackathons, and continuously improving my
+      problem-solving and system design skills.
     </p>
   </section>
 
   <!-- SKILLS -->
-  <section id="skills" class="section dark">
+  <section id="skills" class="section">
     <h2>Skills</h2>
     <div class="skills-grid">
       <div>Python</div>
@@ -160,34 +237,34 @@ footer {
     <div class="project-card">
       <h3>CampusPulse – AI Powered Campus Helpdesk</h3>
       <p>
-        An AI chatbot that provides students and faculty with instant access to
-        campus-related information using NLP and intelligent search.
-      </p>
-    </div>
-
-    <div class="project-card">
-      <h3>Farm2Market 2.0</h3>
-      <p>
-        Autonomous agricultural market infrastructure integrating AI, IoT, and
-        smart verification to improve farmer-market transparency.
+        An AI-based chatbot that provides students and faculty with instant,
+        accurate access to campus-related information using NLP and intelligent
+        retrieval techniques.
       </p>
     </div>
 
     <div class="project-card">
       <h3>Machine Learning Mini Projects</h3>
       <p>
-        Implemented regression, classification, and data visualization projects
-        using Scikit-learn and Python.
+        Built multiple ML models involving regression, classification, and data
+        visualization using Python and Scikit-learn to understand real-world
+        datasets and performance evaluation.
       </p>
     </div>
+
   </section>
 
   <!-- CONTACT -->
-  <section id="contact" class="section dark">
+  <section id="contact" class="section">
     <h2>Contact</h2>
     <p>Email: <strong>keerthanyu@example.com</strong></p>
-    <p>GitHub: <a href="https://github.com/KeerthanYU" target="_blank">github.com/KeerthanYU</a></p>
-    <p>LinkedIn: <a href="#" target="_blank">Add your LinkedIn</a></p>
+    <p>
+      GitHub:
+      <a href="https://github.com/KeerthanYU" target="_blank">
+        github.com/KeerthanYU
+      </a>
+    </p>
+    <p>LinkedIn: <a href="#" target="www.linkedin.com/in/keerthanyu">Add your LinkedIn</a></p>
   </section>
 
   <footer>
@@ -195,15 +272,14 @@ footer {
   </footer>
 
   <script>
-    
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener("click", function (e) {
-    e.preventDefault();
-    document.querySelector(this.getAttribute("href"))
-      .scrollIntoView({ behavior: "smooth" });
-  });
-});
-
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute("href"))
+          .scrollIntoView({ behavior: "smooth" });
+      });
+    });
   </script>
+
 </body>
 </html>
