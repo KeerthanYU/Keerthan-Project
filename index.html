@@ -1161,7 +1161,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
     
-    <!-- Contact via WhatsApp: no backend required. JavaScript will build a wa.me link. -->
+    <!-- ========== EmailJS CDN v3 (for client-side email sending) ========== -->
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 </head>
 <body>
     <!-- ============================================
@@ -1910,16 +1911,32 @@
          * Debug helper: Inspect error objects in console
          * Call this in browser console: debugEmailError()
          */
-        window.debugContact = function() {
+        // EmailJS Initialization
+        const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY_HERE';  // ⚠️ REPLACE WITH YOUR PUBLIC KEY
+        const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID_HERE'; // ⚠️ REPLACE WITH YOUR SERVICE ID
+        const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID_HERE'; // ⚠️ REPLACE WITH YOUR TEMPLATE ID
+        const RECIPIENT_EMAIL = 'your-email@example.com'; // ⚠️ REPLACE WITH YOUR EMAIL
+
+        try {
+            if (typeof emailjs !== 'undefined') {
+                emailjs.init(EMAILJS_PUBLIC_KEY);
+                console.log('✅ EmailJS initialized successfully.');
+            }
+        } catch (error) {
+            console.error('❌ EmailJS initialization failed:', error);
+        }
+
+        window.debugEmailJS = function() {
             console.clear();
-            console.log('%c=== Contact Form Debug ===', 'font-size: 14px; font-weight: bold; color: #00d4ff; padding: 10px;');
-            console.log('This site uses a client-side WhatsApp redirect (wa.me) for messages.');
-            console.log('Replace the placeholder WhatsApp number in the script with your number in international format (no + or dashes).');
-            console.log('Example: 15551234567 for +1 555 123 4567');
-            console.log('Then test the form to verify WhatsApp opens with pre-filled message.');
+            console.log('%c=== EmailJS Configuration Debug ===', 'font-size: 14px; font-weight: bold; color: #00d4ff; padding: 10px;');
+            console.log('PUBLIC_KEY:', EMAILJS_PUBLIC_KEY);
+            console.log('SERVICE_ID:', EMAILJS_SERVICE_ID);
+            console.log('TEMPLATE_ID:', EMAILJS_TEMPLATE_ID);
+            console.log('RECIPIENT_EMAIL:', RECIPIENT_EMAIL);
+            console.log('\n💡 Replace all placeholders in the script before using this form.');
         };
 
-        console.log('💡 Tip: Type debugContact() in console for contact-form instructions');
+        console.log('💡 Tip: Type debugEmailJS() in console to verify your EmailJS setup');
         
 
         
@@ -1967,8 +1984,8 @@
                 return;
             }
 
-            // ========== FORM SUBMIT EVENT HANDLER (WhatsApp redirect) ==========
-            contactForm.addEventListener('submit', function(e) {
+            // ========== FORM SUBMIT EVENT HANDLER (EmailJS) ==========
+            contactForm.addEventListener('submit', async function(e) {
                 // Prevent page reload
                 e.preventDefault();
 
@@ -1980,10 +1997,14 @@
                 const subject = document.getElementById('subject').value.trim();
                 const message = document.getElementById('message').value.trim();
 
-                // Basic validation (required fields)
-                if (!name || !email || !message) {
-                    alert('Please fill in Name, Email and Message before sending.');
-                    showFormMessage('⚠️ Please fill in the required fields.', 'error');
+                // === VALIDATION ===
+                if (!name || !email || !subject || !message) {
+                    showFormMessage('⚠️ Please fill in all fields.', 'error');
+                    return;
+                }
+
+                if (name.length < 2) {
+                    showFormMessage('⚠️ Name must be at least 2 characters.', 'error');
                     return;
                 }
 
@@ -1992,29 +2013,65 @@
                     return;
                 }
 
-                // Loading state
+                if (subject.length < 3) {
+                    showFormMessage('⚠️ Subject must be at least 3 characters.', 'error');
+                    return;
+                }
+
+                if (message.length < 10) {
+                    showFormMessage('⚠️ Message must be at least 10 characters.', 'error');
+                    return;
+                }
+
+                // === LOADING STATE ===
                 submitBtn.disabled = true;
-                submitBtn.textContent = '⏳ Opening WhatsApp...';
+                submitBtn.textContent = '⏳ Sending...';
 
-                // ====== WHATSAPP NUMBER (REPLACE THIS) ======
-                // Put your WhatsApp number here in international format, without '+' or dashes.
-                // Example: for +1 555 123 4567 use '15551234567'
-                const WHATSAPP_NUMBER = '918105366994';
+                // === PREPARE EMAIL PARAMETERS ===
+                const templateParams = {
+                    to_email: RECIPIENT_EMAIL,
+                    from_name: name,
+                    from_email: email,
+                    subject: subject,
+                    message: message,
+                    reply_to: email
+                };
 
-                // Build the message and encode it
-                const fullMessage = `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\n${message}`;
-                const encoded = encodeURIComponent(fullMessage);
+                try {
+                    // === SEND EMAIL VIA EMAILJS ===
+                    const response = await emailjs.send(
+                        EMAILJS_SERVICE_ID,
+                        EMAILJS_TEMPLATE_ID,
+                        templateParams
+                    );
 
-                const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`;
+                    console.log('✅ Email sent successfully:', response);
+                    
+                    // === SUCCESS ===
+                    showFormMessage(`✅ Message sent successfully! I'll get back to you at ${email} soon.`, 'success');
 
-                // Open WhatsApp in a new tab/window (web or app will handle on mobile)
-                window.open(waUrl, '_blank');
+                    // Reset form
+                    contactForm.reset();
+                    submitBtn.textContent = 'Send Message';
+                    submitBtn.disabled = false;
 
-                // Provide feedback and reset form
-                showFormMessage('Opening WhatsApp to send your message...', 'success');
-                contactForm.reset();
-                submitBtn.textContent = 'Send Message';
-                submitBtn.disabled = false;
+                    // Scroll to confirmation
+                    document.getElementById('formStatus').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                } catch (error) {
+                    console.error('❌ Email sending failed:', error);
+                    
+                    let errorMsg = '❌ Failed to send message. Please check your EmailJS configuration.';
+                    if (error.status === 401) {
+                        errorMsg = '❌ Unauthorized: Check your PUBLIC_KEY is correct.';
+                    } else if (error.status === 400) {
+                        errorMsg = '❌ Bad Request: Check SERVICE_ID and TEMPLATE_ID.';
+                    }
+                    
+                    showFormMessage(errorMsg, 'error');
+                    submitBtn.textContent = 'Send Message';
+                    submitBtn.disabled = false;
+                }
             });
 
             console.log('✅ Contact form handler is now active and ready.');
