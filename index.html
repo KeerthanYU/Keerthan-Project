@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,20 +8,6 @@
     <meta name="keywords" content="Keerthan Y U, AI Engineer, Machine Learning, Python Developer, Data Science, Software Engineer, Portfolio">
     <meta name="author" content="Keerthan Y U">
     <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://keerthanyu.github.io">
-    <meta property="og:title" content="Keerthan Y U - AI/ML Engineer & Software Developer">
-    <meta property="og:description" content="Elite portfolio showcasing AI/ML projects, data science expertise, and full-stack development skills.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&h=630&fit=crop">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://keerthanyu.github.io">
-    <meta property="twitter:title" content="Keerthan Y U - AI/ML Engineer">
-    <meta property="twitter:description" content="Building intelligent systems. Python • Deep Learning • Data Science • Full-Stack Development">
-    <meta property="twitter:image" content="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&h=630&fit=crop">
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://keerthanyu.github.io">
@@ -552,7 +539,7 @@
 
         .about-image {
             position: relative;
-            height: 400px;
+            height: 500px;
             background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(99, 102, 241, 0.1));
             border-radius: 16px;
             border: 1px solid rgba(0, 212, 255, 0.2);
@@ -566,6 +553,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center 30%;
             border-radius: 16px;
         }
 
@@ -1032,6 +1020,43 @@
             align-self: flex-start;
         }
 
+        /* Form Status Messages */
+        .form-status {
+            border-left: 4px solid;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .form-status.success {
+            background: rgba(16, 185, 129, 0.1);
+            border-left-color: var(--color-success);
+            color: var(--color-success);
+        }
+
+        .form-status.error {
+            background: rgba(239, 68, 68, 0.1);
+            border-left-color: #ef4444;
+            color: #ef4444;
+        }
+
+        html.light .form-status.success {
+            background: rgba(16, 185, 129, 0.08);
+        }
+
+        html.light .form-status.error {
+            background: rgba(239, 68, 68, 0.08);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         @media (max-width: 768px) {
             .contact-content {
                 grid-template-columns: 1fr;
@@ -1134,6 +1159,50 @@
     <!-- GSAP Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+    
+    <!-- ========== EmailJS CDN v3 (REQUIRED BEFORE CUSTOM SCRIPT) ========== -->
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    
+    <!-- ========== EmailJS Initialization (STEP 1: Initialize after CDN loads) ========== -->
+    <script>
+        // CONFIGURATION - UPDATE THESE VALUES FROM YOUR EMAILJS DASHBOARD:
+        // 1. PUBLIC_KEY: https://dashboard.emailjs.com/admin/account > API Keys (COPY FULL KEY)
+        // 2. SERVICE_ID: https://dashboard.emailjs.com/admin/services
+        // 3. TEMPLATE_ID: https://dashboard.emailjs.com/admin/templates
+        
+        const EMAILJS_PUBLIC_KEY = '98MGwhTe_bUAkMp1A';  // ⚠️ REPLACE THIS (20-30+ characters)
+        const EMAILJS_SERVICE_ID = 'service_i841gon';            // ✓ Already set
+        const EMAILJS_TEMPLATE_ID = 'template_ylv0aq2';          // ✓ Already set
+        const RECIPIENT_EMAIL = 'keerthanyu88@gmail.com';
+        
+        // Debug check: Verify EmailJS loaded
+        console.log('EmailJS library available:', typeof emailjs !== 'undefined');
+        
+        // Initialize EmailJS with error handling
+        try {
+            if (typeof emailjs === 'undefined') {
+                throw new Error('EmailJS CDN failed to load. Check network connection and console for details.');
+            }
+            
+            if (!EMAILJS_PUBLIC_KEY || EMAILJS_PUBLIC_KEY === 'YOUR_REAL_PUBLIC_KEY_HERE') {
+                throw new Error('PUBLIC_KEY not configured. Replace placeholder in HTML line ~1176 with your actual key from https://dashboard.emailjs.com/admin/account');
+            }
+            
+            emailjs.init(EMAILJS_PUBLIC_KEY);
+            console.log('✅ EmailJS v3 initialized successfully.');
+            console.log('Configuration check:');
+            console.log('  - PUBLIC_KEY length:', EMAILJS_PUBLIC_KEY.length, 'characters (should be 20-30+)');
+            console.log('  - SERVICE_ID:', EMAILJS_SERVICE_ID);
+            console.log('  - TEMPLATE_ID:', EMAILJS_TEMPLATE_ID);
+            console.log('✅ Ready to send emails.');
+        } catch (error) {
+            console.error('❌ EmailJS initialization failed:');
+            console.error('Error message:', error.message);
+            console.error('Error object:', error);
+            console.warn('Form will not work. Please check the error above.');
+        }
+    </script>
 </head>
 <body>
     <!-- ============================================
@@ -1212,7 +1281,7 @@
                     </p>
                 </div>
                 <div class="about-image">
-                    <img src="profile.jpg" alt="Keerthan Y U - AI/ML Engineer" class="profile-img">
+                    <img src="D:\Keerthan-Projects\WhatsApp Image 2026-01-23 at 10.11.26 PM.jpeg" alt="Keerthan Y U - AI/ML Engineer" class="profile-img">
                 </div>
             </div>
         </div>
@@ -1611,6 +1680,43 @@
     </section>
 
     <!-- ============================================
+         EXPERIENCE SECTION
+         ============================================ -->
+    <section id="experience" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">Experience & Journey</h2>
+            <div class="timeline stagger">
+                <div class="timeline-item fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2023 - Present</div>
+                        <div class="timeline-title">AI/ML Developer</div>
+                        <p>Building intelligent systems and contributing to open-source projects. Specializing in deep learning and production ML pipelines.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2022 - 2023</div>
+                        <div class="timeline-title">Full-Stack Developer</div>
+                        <p>Developed responsive web applications and built scalable backend systems. Gained experience with modern frameworks and databases.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-date">2021 - 2022</div>
+                        <div class="timeline-title">Data Science Journey Begins</div>
+                        <p>Started learning machine learning, data analysis, and Python. Built first projects focusing on data-driven insights.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
          CONTACT SECTION
          ============================================ -->
     <section id="contact" class="section">
@@ -1637,22 +1743,19 @@
                         <a href="https://linkedin.com/in/keerthanyu" target="_blank" class="social-link" title="LinkedIn">
                             <span>💼</span>
                         </a>
-                        <a href="https://twitter.com/keerthanyu" target="_blank" class="social-link" title="Twitter">
+                        <a href="https://twitter.com/keerthanyu" target="_blank" class="social-link" title="Twitter/X">
                             <span>𝕏</span>
                         </a>
-                        <a href="mailto:keerthan@example.com" class="social-link" title="Email">
-                            <span>✉️</span>
-                        </a>
-                        <a href="https://medium.com/@keerthanyu" target="_blank" class="social-link" title="Medium">
-                            <span>📝</span>
+                        <a href="mailto:keerthan.yu@example.com" class="social-link" title="Email">
+                            <span>📧</span>
                         </a>
                     </div>
                 </div>
 
-                <form class="contact-form" id="contactForm">
+                <form class="contact-form" id="contactForm" novalidate>
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required placeholder="Your name">
+                        <input type="text" id="name" name="name" required placeholder="Your name" minlength="2">
                     </div>
 
                     <div class="form-group">
@@ -1662,15 +1765,18 @@
 
                     <div class="form-group">
                         <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" required placeholder="What's this about?">
+                        <input type="text" id="subject" name="subject" required placeholder="What's this about?" minlength="3">
                     </div>
 
                     <div class="form-group">
                         <label for="message">Message</label>
-                        <textarea id="message" name="message" required placeholder="Your message here..."></textarea>
+                        <textarea id="message" name="message" required placeholder="Your message here..." minlength="10" rows="5"></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary form-submit">Send Message</button>
+                    <!-- Status Message Container -->
+                    <div id="formStatus" class="form-status" style="display: none; margin-bottom: 1rem; padding: 1rem; border-radius: 8px; font-weight: 500;"></div>
+
+                    <button type="submit" class="btn btn-primary form-submit" id="submitBtn">Send Message</button>
                 </form>
             </div>
         </div>
@@ -1694,7 +1800,7 @@
         // ============================================
         // GSAP SETUP & ANIMATIONS
         // ============================================
-        gsap.registerPlugin(ScrollTrigger);
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
         // Animate hero title on load
         window.addEventListener('load', () => {
@@ -1837,46 +1943,231 @@
         } else {
             initNavAndTheme();
         }
+
+        // ============================================
+        // EMAIL DEBUGGING UTILITY
+        // ============================================
+        /**
+         * Debug helper: Inspect error objects in console
+         * Call this in browser console: debugEmailError()
+         */
+        window.debugEmailError = function() {
+            console.clear();
+            console.log('%c=== EmailJS Configuration Debug ===', 'font-size: 14px; font-weight: bold; color: #00d4ff; padding: 10px;');
+            console.log('');
+            console.log('%cConfiguration Values:', 'font-weight: bold; color: #FFD700; font-size: 12px;');
+            console.log('PUBLIC_KEY:', EMAILJS_PUBLIC_KEY);
+            console.log('PUBLIC_KEY length:', EMAILJS_PUBLIC_KEY.length, '(⚠️ Should be 20-30+ chars)');
+            console.log('SERVICE_ID:', EMAILJS_SERVICE_ID);
+            console.log('TEMPLATE_ID:', EMAILJS_TEMPLATE_ID);
+            console.log('RECIPIENT_EMAIL:', RECIPIENT_EMAIL);
+            console.log('');
+            
+            console.log('%cEmailJS Library Status:', 'font-weight: bold; color: #FFD700; font-size: 12px;');
+            console.log('emailjs defined:', typeof emailjs !== 'undefined');
+            if (typeof emailjs !== 'undefined') {
+                console.log('emailjs object:', emailjs);
+                console.log('emailjs.send available:', typeof emailjs.send === 'function');
+                console.log('emailjs.init available:', typeof emailjs.init === 'function');
+            }
+            console.log('');
+            
+            console.log('%cHow to Test Form Submission:', 'font-weight: bold; color: #10b981; font-size: 12px;');
+            console.log('1. Scroll to "Let\'s Connect" section');
+            console.log('2. Fill all fields with test data');
+            console.log('3. Click "Send Message"');
+            console.log('4. Check console for detailed error logs');
+            console.log('5. Look for error.status, error.message, or error object structure');
+            console.log('');
+        };
         
-        // ============================================
-        // CONTACT FORM HANDLING
-        // ============================================
-        function initContactForm() {
-            const contactForm = document.getElementById('contactForm');
-            if (!contactForm) return;
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
+        console.log('💡 Tip: Type debugEmailError() in console to inspect configuration');
+        
 
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                subject: document.getElementById('subject').value,
-                message: document.getElementById('message').value
-            };
-
-            // Simulate form submission
-            gsap.to(contactForm, {
-                duration: 0.3,
-                opacity: 0.7
-            });
-
-            setTimeout(() => {
-                // Show success message
-                alert('Thank you for your message! I will get back to you soon.');
-                contactForm.reset();
-                gsap.to(contactForm, {
-                    duration: 0.3,
-                    opacity: 1
-                });
-            }, 1000);
-            });
+        
+        /**
+         * Validates email format
+         */
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
         }
 
-        // Initialize contact form when DOM is ready
+        /**
+         * Show feedback message to user
+         */
+        function showFormMessage(message, type = 'success') {
+            const statusEl = document.getElementById('formStatus');
+            statusEl.textContent = message;
+            statusEl.className = `form-status ${type}`;
+            statusEl.style.display = 'block';
+            
+            // Auto-hide errors after 5 seconds
+            if (type === 'error') {
+                setTimeout(() => {
+                    statusEl.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        /**
+         * Hide feedback message
+         */
+        function hideFormMessage() {
+            const statusEl = document.getElementById('formStatus');
+            statusEl.style.display = 'none';
+        }
+
+        /**
+         * Setup contact form (STEP 2: Called when DOM is ready)
+         */
+        function setupContactForm() {
+            const contactForm = document.getElementById('contactForm');
+            const submitBtn = document.getElementById('submitBtn');
+
+            if (!contactForm) {
+                console.error('❌ Contact form element not found');
+                return;
+            }
+
+            // ========== FORM SUBMIT EVENT HANDLER ==========
+            contactForm.addEventListener('submit', async function(e) {
+                // ⚠️ CRITICAL: Prevent default form submission (stops page reload and URL params)
+                e.preventDefault();
+                
+                hideFormMessage();
+
+                // Get form field values
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const subject = document.getElementById('subject').value.trim();
+                const message = document.getElementById('message').value.trim();
+
+                // === VALIDATION ===
+                if (!name || !email || !subject || !message) {
+                    showFormMessage('⚠️ Please fill in all fields.', 'error');
+                    return;
+                }
+
+                if (name.length < 2) {
+                    showFormMessage('⚠️ Name must be at least 2 characters.', 'error');
+                    return;
+                }
+
+                if (!isValidEmail(email)) {
+                    showFormMessage('⚠️ Please enter a valid email address.', 'error');
+                    return;
+                }
+
+                if (subject.length < 3) {
+                    showFormMessage('⚠️ Subject must be at least 3 characters.', 'error');
+                    return;
+                }
+
+                if (message.length < 10) {
+                    showFormMessage('⚠️ Message must be at least 10 characters.', 'error');
+                    return;
+                }
+
+                // === LOADING STATE ===
+                submitBtn.disabled = true;
+                submitBtn.textContent = '⏳ Sending...';
+
+                // === PREPARE EMAIL PARAMETERS ===
+                const templateParams = {
+                    to_email: RECIPIENT_EMAIL,
+                    from_name: name,
+                    from_email: email,
+                    subject: subject,
+                    message: message,
+                    reply_to: email,
+                    timestamp: new Date().toLocaleString()
+                };
+
+                try {
+                    // === SEND EMAIL VIA EMAILJS ===
+                    const response = await emailjs.send(
+                        EMAILJS_SERVICE_ID,
+                        EMAILJS_TEMPLATE_ID,
+                        templateParams
+                    );
+
+                    console.log('✅ Email sent successfully:', response);
+                    
+                    // === SUCCESS ===
+                    showFormMessage(
+                        `✅ Message sent successfully! I'll get back to you at ${email} soon.`,
+                        'success'
+                    );
+
+                    // Reset form for next submission
+                    contactForm.reset();
+                    submitBtn.textContent = 'Send Message';
+                    submitBtn.disabled = false;
+
+                    // Scroll to confirmation message
+                    document.getElementById('formStatus').scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center' 
+                    });
+
+                } catch (error) {
+                    console.error('❌ Email sending failed.');
+                    console.error('Error object:', error);
+                    console.error('Error type:', typeof error);
+                    console.error('Error keys:', Object.keys(error || {}));
+                    
+                    // Log detailed error properties for debugging
+                    if (error instanceof Error) {
+                        console.error('Error message:', error.message);
+                        console.error('Error stack:', error.stack);
+                    }
+
+                    // === ERROR HANDLING WITH DIAGNOSTIC MESSAGES ===
+                    let errorMsg = '❌ Failed to send message. Please try again.';
+
+                    // Handle EmailJS specific error response
+                    if (error && error.status) {
+                        if (error.status === 400) {
+                            errorMsg = '❌ Bad Request (400): Check SERVICE_ID and TEMPLATE_ID are correct.';
+                        } else if (error.status === 401) {
+                            errorMsg = '❌ Unauthorized (401): Check PUBLIC_KEY is correct and complete.';
+                        } else if (error.status === 403) {
+                            errorMsg = '❌ Forbidden (403): Check EmailJS service permissions.';
+                        } else if (error.status === 422) {
+                            errorMsg = '❌ Unprocessable (422): Template variables mismatch.';
+                        } else if (error.status === 500) {
+                            errorMsg = '❌ Server Error (500): Try again later.';
+                        }
+                    } 
+                    // Handle network errors
+                    else if (error && error.message) {
+                        if (error.message.includes('Network') || error.message.includes('network')) {
+                            errorMsg = '❌ Network Error: Check your internet connection.';
+                        } else if (error.message.includes('PUBLIC_KEY') || error.message.includes('public')) {
+                            errorMsg = '❌ Authentication Error: Check PUBLIC_KEY is valid.';
+                        } else {
+                            errorMsg = `❌ Error: ${error.message}`;
+                        }
+                    }
+                    // Handle fetch/XMLHttpRequest errors
+                    else if (!error) {
+                        errorMsg = '❌ Unknown error occurred. Check browser console.';
+                    }
+
+                    showFormMessage(errorMsg, 'error');
+                    submitBtn.textContent = 'Send Message';
+                    submitBtn.disabled = false;
+                }
+            });
+
+            console.log('✅ Contact form handler is now active and ready.');
+        }
+
+        // === STEP 3: Setup form when DOM is ready ===
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initContactForm);
+            document.addEventListener('DOMContentLoaded', setupContactForm);
         } else {
-            initContactForm();
+            setupContactForm();
         }
 
         // ============================================
@@ -1884,9 +2175,11 @@
         // ============================================
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                const href = this.getAttribute('href');
+                const target = document.querySelector(href);
+                
                 if (target) {
+                    e.preventDefault();
                     gsap.to(window, {
                         duration: 0.8,
                         scrollTo: {
