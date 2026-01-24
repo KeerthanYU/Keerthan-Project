@@ -1714,10 +1714,17 @@
 
                 <form class="contact-form" id="contactForm" novalidate>
                     <div class="form-group">
+                        <label for="title">title</label>
+                        <input type="text" name="title" id="title" required placeholder="Your title">
+                     </div>
+                    <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name" required placeholder="Your name" minlength="2">
                     </div>
-
+                    <div class="form-group">
+                        <label for="time">time</label>
+                        <input type="text" name="time" id="time" required placeholder="time">
+                    </div>
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email" required placeholder="your@email.com">
@@ -1912,10 +1919,10 @@
          * Call this in browser console: debugEmailError()
          */
         // EmailJS Initialization
-        const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY_HERE';  // ⚠️ REPLACE WITH YOUR PUBLIC KEY
-        const EMAILJS_SERVICE_ID = 'YOUR_SERVICE_ID_HERE'; // ⚠️ REPLACE WITH YOUR SERVICE ID
-        const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID_HERE'; // ⚠️ REPLACE WITH YOUR TEMPLATE ID
-        const RECIPIENT_EMAIL = 'your-email@example.com'; // ⚠️ REPLACE WITH YOUR EMAIL
+        const EMAILJS_PUBLIC_KEY = 'UbOzRIqdIBD-8ybKF';  // ⚠️ REPLACE WITH YOUR PUBLIC KEY
+        const EMAILJS_SERVICE_ID = 'service_i841gon'; // ⚠️ REPLACE WITH YOUR SERVICE ID
+        const EMAILJS_TEMPLATE_ID = 'template_8o64d0g'; // ⚠️ REPLACE WITH YOUR TEMPLATE ID
+        const RECIPIENT_EMAIL = 'keerthanyu88@gmail.com'; // ⚠️ REPLACE WITH YOUR EMAIL
 
         try {
             if (typeof emailjs !== 'undefined') {
